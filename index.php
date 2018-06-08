@@ -8,11 +8,11 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css" />
-	<title>Hello, world!</title>
+	<title>KindPlanner</title>
 </head>
 <body>
-<h1>Hello, world!</h1>
-
+<h1>KindPlanner</h1>
+Nieuw kind
 <form id="addKind">
 
 	<input name="naam">
