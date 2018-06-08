@@ -126,6 +126,16 @@ Nieuw kind
 
 			let li = document.createElement('li');
 			li.innerText = `${kind.naam} - ${kind.getLeeftijd()}`;
+			let deleteKnop = document.createElement('button');
+			deleteKnop.innerText = 'X';
+			deleteKnop.addEventListener('click', () => {
+
+				delete Current.kinderen[kind.id];
+				store();
+				displayKinderen();
+				displayTables();
+			});
+			li.appendChild(deleteKnop);
 			ul.appendChild(li);
 		});
 	}
@@ -167,9 +177,9 @@ Nieuw kind
 		console.log(kind.naam, kind.getLeeftijd());
 		store();
 		displayKinderen();
+		displayTables();
 	});
 </script>
-
 
 <script>
 
@@ -206,50 +216,50 @@ Nieuw kind
 		return select;
 	}
 
-	dagen.forEach(dag => {
+	function displayTables(){
 
-		let table = document.createElement('table');
-		let tr = document.createElement('tr');
+		week.innerHTML = '';
 
-		[dag, ''].forEach(text => {
+		dagen.forEach(dag => {
 
-			let th = document.createElement('th');
-			th.innerText = text;
-			tr.appendChild(th);
-		});
-
-		leeftijden.forEach(text => {
-
-			let th = document.createElement('th');
-			th.innerText = `vanaf ${text[0]}`;
-			tr.appendChild(th);
-		});
-
-		table.appendChild(tr);
-		week.appendChild(table);
-
-		uren.forEach(uur => {
+			let table = document.createElement('table');
 			let tr = document.createElement('tr');
-			tr.insertCell().appendChild(document.createTextNode(dag));
-			let begin = uur.toString().padStart(2, '0');
-			let eind = (uur+1).toString().padStart(2, '0');
-			tr.insertCell().appendChild(document.createTextNode(`${begin}-${eind}`));
+
+			[dag, ''].forEach(text => {
+
+				let th = document.createElement('th');
+				th.innerText = text;
+				tr.appendChild(th);
+			});
+
+			leeftijden.forEach(text => {
+
+				let th = document.createElement('th');
+				th.innerText = `vanaf ${text[0]}`;
+				tr.appendChild(th);
+			});
 
 			table.appendChild(tr);
+			week.appendChild(table);
 
-			leeftijden.forEach(leeftijd => {
+			uren.forEach(uur => {
+				let tr = document.createElement('tr');
+				tr.insertCell().appendChild(document.createTextNode(dag));
+				let begin = uur.toString().padStart(2, '0');
+				let eind = (uur + 1).toString().padStart(2, '0');
+				tr.insertCell().appendChild(document.createTextNode(`${begin}-${eind}`));
 
-				tr.insertCell().appendChild(
-					createKindSelect(
-						Current.kinderen.filter(
-							kind => kind.getLeeftijd() >= leeftijd[0]
-						),
-						`${dag}-${uur}-${leeftijd}`
-					)
-				);
+				table.appendChild(tr);
+
+				leeftijden.forEach(leeftijd => {
+
+					tr.insertCell().appendChild(createKindSelect(Current.kinderen.filter(kind => kind.getLeeftijd() >= leeftijd[0]), `${dag}-${uur}-${leeftijd}`));
+				});
 			});
 		});
-	});
+	}
+
+	displayTables();
 </script>
 
 </body>
